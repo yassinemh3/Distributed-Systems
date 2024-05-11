@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert
+    kompose.version: 1.31.2 (a92241f79)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: robot3
+  name: robot3
+spec:
+  ports:
+    - name: "9093"
+      port: 9093
+      targetPort: 9093
+  selector:
+    io.kompose.service: robot3
+status:
+  loadBalancer: {}

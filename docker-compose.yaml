@@ -1,0 +1,62 @@
+services:
+  controller:
+    build:
+      context: ./Controller
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"  # Map container port 8080 to host port 8080
+      - "9090:9090"
+      - "9091:9091"
+
+  robot1:
+      build:
+        context: ./robots
+        dockerfile: Dockerfile
+      depends_on:
+        - controller
+      environment:
+        - INIT=1
+        - ROBOT_ID=1
+        - PORT=9091
+
+  robot2:
+      build:
+        context: ./robots
+        dockerfile: Dockerfile
+      depends_on:
+        - robot1
+      environment:
+        - INIT=0
+        - ROBOT_ID=2
+        - PORT=9092
+
+  robot3:
+      build:
+        context: ./robots
+        dockerfile: Dockerfile
+      depends_on:
+        - robot2
+      environment:
+        - INIT=0
+        - ROBOT_ID=3
+        - PORT=9093
+
+  robot4:
+      build:
+        context: ./robots
+        dockerfile: Dockerfile
+      depends_on:
+        - robot3
+      environment:
+        - INIT=0
+        - ROBOT_ID=4
+        - PORT=9094
+
+#  mosquitto:
+#      image: eclipse-mosquitto
+#      hostname: broker
+#      container_name: broker
+#      ports:
+#        - "1883:1883"
+#      volumes:
+#        - ./mosquitto:/mosquitto/config

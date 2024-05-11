@@ -1,0 +1,33 @@
+force delete :
+kubectl delete pod mosquitto --grace-period=0 --force
+
+kubectl scale deployment mosquitto --replicas=0
+
+kubectl get pods
+
+kubectl apply -f controller-deployment.yaml
+
+kubectl describe pod mosquitto
+
+
+kubectl port-forward controller-85cf656dbc-rt6g6  8080:8080
+
+kubectl delete pod <pod-name>
+
+
+kubectl get events --field-selector involvedObject.name=<pod-name>
+
+
+kubectl logs <pod-name>
+
+
+docker tag eclipse-mosquitto:latest  yassinemh/eclipse-mosquitto:latest
+
+
+docker push yassinemh/eclipse-mosquitto:latest 
+
+
+docker pull yassinemh/eclipse-mosquitto:latest 
+
+
+docker login --username yassineMH     
